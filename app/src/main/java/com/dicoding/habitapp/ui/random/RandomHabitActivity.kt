@@ -2,6 +2,7 @@ package com.dicoding.habitapp.ui.random
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -11,6 +12,7 @@ import com.dicoding.habitapp.utils.HABIT
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.dicoding.habitapp.ui.countdown.CountDownActivity
+import com.dicoding.habitapp.ui.list.HabitListActivity
 
 class RandomHabitActivity : AppCompatActivity() {
 
@@ -35,13 +37,34 @@ class RandomHabitActivity : AppCompatActivity() {
         val viewModel = ViewModelProvider(this, factory).get(RandomHabitViewModel::class.java)
 
         viewModel.priorityLevelHigh.observe(this) {
-            adapter.submitData(RandomHabitAdapter.PageType.HIGH, it)
+            if (it != null){
+                adapter.submitData(RandomHabitAdapter.PageType.HIGH, it)
+            }else{
+                val intent = Intent(this, HabitListActivity::class.java)
+                Toast.makeText(this,"Please add high priority habit",Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
         }
         viewModel.priorityLevelMedium.observe(this) {
-            adapter.submitData(RandomHabitAdapter.PageType.MEDIUM, it)
+            if (it != null){
+                adapter.submitData(RandomHabitAdapter.PageType.MEDIUM, it)
+            }else{
+                val intent = Intent(this, HabitListActivity::class.java)
+                Toast.makeText(this,"Please add Medium priority habit",Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
         }
         viewModel.priorityLevelLow.observe(this) {
-            adapter.submitData(RandomHabitAdapter.PageType.LOW, it)
+            if (it != null){
+                adapter.submitData(RandomHabitAdapter.PageType.LOW, it)
+            }else{
+                val intent = Intent(this, HabitListActivity::class.java)
+                Toast.makeText(this,"Please add Low priority habit",Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
         }
 
     }
